@@ -11,7 +11,7 @@ class Blockchain:
 
     def __repr__(self):
         return f'Blockchain ******** \n{self.chain}'
-    
+
 
 def main():
     blockchain = Blockchain()
