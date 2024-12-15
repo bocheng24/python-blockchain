@@ -3,15 +3,14 @@ from block import Block
 class Blockchain:
 
     def __init__(self):
-        self.chain = []
+        self.chain = [Block.genesis()]
 
     def add_block(self, data):
-        new_block = Block(data)
-
-        self.chain.append(new_block)
+        last_block = self.chain[-1]
+        self.chain.append(Block.mine_block(last_block, data))
 
     def __repr__(self):
-        return f'Blockchain - {self.chain}'
+        return f'Blockchain ******** \n{self.chain}'
     
 
 def main():

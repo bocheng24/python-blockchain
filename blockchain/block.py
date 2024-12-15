@@ -1,23 +1,5 @@
 import time
 
-def mine_block(last_block, data):
-
-    ts = time.time_ns()
-    hash = last_block.timestamp - ts
-
-    block = Block(ts, last_block.hash, hash, data)
-    
-    return block
-
-
-def genesis():
-    ts = 1
-    last_hash = 'genesis_last_hash'
-    hash = 'genesis_hash'
-    data = []
-    
-    return Block(ts, last_hash, hash, data)
-
 class Block:
 
     def __init__(self, timestamp, lasthash, hash, data):
@@ -35,12 +17,30 @@ class Block:
             f'\tData: {self.data}\n'
             ')'
         )
+    
+    @staticmethod
+    def mine_block(last_block, data):
+        ts = time.time_ns()
+        hash = last_block.timestamp - ts
+
+        block = Block(ts, last_block.hash, hash, data)
+        
+        return block
+
+    @staticmethod
+    def genesis():
+        ts = 1
+        last_hash = 'genesis_last_hash'
+        hash = 'genesis_hash'
+        data = []
+        
+        return Block(ts, last_hash, hash, data)
 
 
 def main():
-    genesis_block = genesis()
+    genesis_block = Block.genesis()
 
-    next_block = mine_block(genesis_block, 'hello')
+    next_block = Block.mine_block(genesis_block, 'hello')
 
     print(genesis_block)
     print(next_block)
