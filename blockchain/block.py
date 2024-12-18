@@ -1,5 +1,5 @@
 import time
-from crypto_hash import *
+from util.crypto_hash import *
 
 class Block:
 
