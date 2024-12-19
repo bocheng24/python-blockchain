@@ -3,6 +3,8 @@ from util.crypto_hash import *
 from dataclasses import dataclass
 from typing import Any
 
+from configs.config import MINE_RATE
+
 @dataclass
 class Block:
 
@@ -21,7 +23,7 @@ class Block:
             f'\thash: {self.hash}\n'
             f'\tData: {self.data}\n'
             f'\tDifficulty: {self.difficulty}\n'
-            f'\nNonce: {str(self.nonce)}\n'
+            f'\tNonce: {str(self.nonce)}\n'
             ')'
         )
 
@@ -54,6 +56,8 @@ class Block:
 
             block = Block(**block_data)
 
+            block.difficulty = Block.adjust_difficulty(last_block, block.timestamp)
+
         return block
 
     @staticmethod
@@ -70,6 +74,18 @@ class Block:
         }
 
         return Block(**genesis_data)
+
+
+    @staticmethod
+    def adjust_difficulty(last_block, new_ts):
+
+        if (new_ts - last_block.timestamp) < MINE_RATE:
+            return last_block.difficulty + 1
+
+        if last_block.difficulty > 1:
+            return last_block.difficulty - 1
+
+        return 1
 
 
 def main():
