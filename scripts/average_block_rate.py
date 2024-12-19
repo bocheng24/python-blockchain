@@ -9,7 +9,7 @@ blockchain = Blockchain()
 
 times = []
 
-n = 100
+n = 20
 
 for i in tqdm(range(n)):
     start_ts = time_ns()
@@ -28,5 +28,5 @@ print(df)
 
 plt.plot(df['Time_to_mine'], label = 'time to mine')
 plt.plot(df['avg_time_to_mine'], label = 'AVG time to mine')
-plt.legends()
+plt.legend()
 plt.show()
